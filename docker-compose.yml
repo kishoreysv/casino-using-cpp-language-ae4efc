@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DATABASE_URL: sqlite:./data/tenfold.db
+      CORS_ORIGIN: http://localhost:${FRONTEND_HTTP_PORT:-8080}
+    ports:
+      - "${BACKEND_HTTP_PORT:-3000}:3000"
+    volumes:
+      - tenfold-data:/app/data
+    restart: unless-stopped
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api
+    ports:
+      - "${FRONTEND_HTTP_PORT:-8080}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  tenfold-data:

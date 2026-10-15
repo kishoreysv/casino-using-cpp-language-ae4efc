@@ -1,0 +1,35 @@
+{
+  "communities": {
+    "0": [
+      "main_1",
+      "main_1_main",
+      "main_1_round1",
+      "main_1_rules"
+    ]
+  },
+  "cohesion": {
+    "0": 0.8333333333333334
+  },
+  "gods": [
+    {
+      "id": "main_1_main",
+      "label": "main()",
+      "degree": 3
+    },
+    {
+      "id": "main_1_round1",
+      "label": "round1()",
+      "degree": 2
+    },
+    {
+      "id": "main_1_rules",
+      "label": "rules()",
+      "degree": 2
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

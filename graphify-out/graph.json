@@ -1,0 +1,107 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "main (1).cpp",
+      "file_type": "code",
+      "source_file": "main (1).cpp",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "main (1).cpp",
+      "id": "main_1",
+      "community_name": "main (1).cpp"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "main (1).cpp",
+      "source_location": "L9",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "main()",
+      "id": "main_1_main",
+      "community_name": "main (1).cpp"
+    },
+    {
+      "label": "round1()",
+      "file_type": "code",
+      "source_file": "main (1).cpp",
+      "source_location": "L16",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "round1()",
+      "id": "main_1_round1",
+      "community_name": "main (1).cpp"
+    },
+    {
+      "label": "rules()",
+      "file_type": "code",
+      "source_file": "main (1).cpp",
+      "source_location": "L89",
+      "_origin": "ast",
+      "community": 0,
+      "norm_label": "rules()",
+      "id": "main_1_rules",
+      "community_name": "main (1).cpp"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main (1).cpp",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "main_1",
+      "target": "main_1_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main (1).cpp",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "main_1",
+      "target": "main_1_round1"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main (1).cpp",
+      "source_location": "L89",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "main_1",
+      "target": "main_1_rules"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "main (1).cpp",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "main_1_main",
+      "target": "main_1_round1"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "main (1).cpp",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "main_1_main",
+      "target": "main_1_rules"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "d4af9927d38ae7bf8ece4b754877f8d0210606da"
+}
