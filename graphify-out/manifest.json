@@ -1,0 +1,12 @@
+{
+  ".engine/external_source.json": {
+    "mtime": 1792077471.8276742,
+    "ast_hash": "90974087194b74a987d373890a9ea025",
+    "semantic_hash": "90974087194b74a987d373890a9ea025"
+  },
+  "main (1).cpp": {
+    "mtime": 1792077069.9512644,
+    "ast_hash": "4a1e5b1adb76de7b034cce01ca210f20",
+    "semantic_hash": "4a1e5b1adb76de7b034cce01ca210f20"
+  }
+}
