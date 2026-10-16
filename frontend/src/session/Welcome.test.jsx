@@ -225,6 +225,10 @@ describe('app-owned recovery and navigation', () => {
     await userEvent.click(screen.getByRole('link', { name: 'Back to rules & setup' }));
     await userEvent.click(screen.getByRole('link', { name: 'View saved session' }));
     expect(screen.getByText('stopped')).toBeVisible();
+    expect(screen.getByLabelText('Current balance')).toHaveTextContent('1,000 credits');
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeDisabled();
+    expect(screen.getByText(/No rounds yet/)).toBeVisible();
+    expect(screen.getByRole('link', { name: 'Start a new session' })).toHaveAttribute('href', '/');
   });
 
   it('shows recovery loading while a request remains pending', async () => {

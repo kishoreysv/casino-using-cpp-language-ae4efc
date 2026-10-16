@@ -219,13 +219,15 @@ describe('session HTTP API', () => {
     expect(service.current(token)).toEqual(session);
   });
 
-  it('provides dependency-free health and JSON 404s without installing round routes', async () => {
+  it('provides dependency-free health, JSON 404s and sanitized errors when persistence is unavailable', async () => {
     repository.close();
     const healthy = await api.get('/api/health').expect(200);
     expect(healthy.body).toEqual({ status: 'ok' });
     const missing = await api.get('/unknown').expect(404);
     expect(missing.body).toEqual({ error: 'Route not found.' });
-    await api.post('/api/v1/rounds').send({ bet: 100, guess: 1 }).expect(404);
+    const roundFailure = await api.post('/api/v1/rounds').send({ bet: 100, guess: 1 }).expect(500);
+    expect(roundFailure.body).toEqual({ error: 'The session service is unavailable. Please try again.' });
+    expect(JSON.stringify(roundFailure.body)).not.toMatch(/SQLITE|database connection/i);
     const failure = await api.post('/api/v1/sessions').send({ name: 'Ada', deposit: 100 }).expect(500);
     expect(failure.body).toEqual({ error: 'The session service is unavailable. Please try again.' });
     expect(JSON.stringify(failure.body)).not.toMatch(/SQLITE|database connection/i);

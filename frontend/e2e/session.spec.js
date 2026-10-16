@@ -72,7 +72,9 @@ test('start validates, saves real session data, recovers after reload, and stops
   expect(created.token).toMatch(/^[A-Za-z0-9_-]{43}$/);
   await expect(page).toHaveURL(/\/play$/);
   await expect(page.getByRole('heading', { name: `Welcome, ${created.session.name}.` })).toBeVisible();
-  await expect(page.getByText(`${created.session.balance.toLocaleString()} credits`, { exact: true })).toBeVisible();
+  await expect(page.getByLabel('Current balance')).toHaveText(`${created.session.balance.toLocaleString('en-US')} credits`);
+  await expect(page.getByText('No rounds yet. Make your first choice at the table.')).toBeVisible();
+  await expect(page.getByLabel('Drawn number')).toHaveCount(0);
   await preflight(page, testInfo, 'saved-session');
   const recoveryResponse = page.waitForResponse((response) => response.url().endsWith('/api/v1/sessions/current'));
   await page.reload();
@@ -97,6 +99,9 @@ test('start validates, saves real session data, recovers after reload, and stops
   await page.reload();
   await expect(page.getByRole('status')).toHaveText('stopped');
   await expect(page.getByRole('button', { name: 'Stop session' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Play round', exact: true })).toBeDisabled();
+  await expect(page.getByLabel('Current balance')).toHaveText(`${created.session.balance.toLocaleString('en-US')} credits`);
+  await expect(page.getByRole('link', { name: 'Start a new session', exact: true })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(errors).toEqual([]);
 });

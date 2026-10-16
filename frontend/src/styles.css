@@ -114,6 +114,47 @@ dd { margin: 0; font-size: 1.4rem; font-variant-numeric: tabular-nums; }
   .session-facts { gap: 24px; }
   .summary-actions .button { width: 100%; }
 }
+/* Extend the existing language with one copper focal board and quieter saved results. */
+.game-layout { max-width: 1180px; margin: auto; }
+.game-heading { display: flex; align-items: end; justify-content: space-between; gap: var(--space-8); margin-bottom: var(--space-8); }
+.game-heading h1 { font-size: clamp(2rem, 4vw, 3.6rem); overflow-wrap: anywhere; margin-bottom: 0; }
+.game-balance { display: flex; gap: var(--space-6); margin: 0; flex-shrink: 0; }
+.game-balance dd { font-size: 1.25rem; }
+.game-columns { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--space-8); align-items: start; }
+.game-board { background: linear-gradient(145deg, var(--surface-raised), var(--surface) 75%); border: 1px solid var(--border); border-top: 2px solid var(--primary); border-radius: var(--radius-card); padding: clamp(24px, 4vw, 40px); box-shadow: var(--shadow-focal); }
+.board-rules { color: var(--foreground-muted); font-size: .9rem; }
+.number-picker { padding: 0; margin: var(--space-8) 0 0; border: 0; min-width: 0; }
+.number-picker legend { font-weight: 600; font-size: .9rem; }
+.number-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-3); margin-top: var(--space-4); }
+.number-button { min-height: 58px; border: 1px solid var(--border); border-radius: var(--radius-small); background: var(--background); color: var(--foreground); font-family: var(--font-display); font-size: 1.55rem; font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease); }
+.number-button:hover:not(:disabled) { border-color: var(--primary); transform: translateY(-2px); }
+.number-button[aria-pressed='true'] { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary); }
+.number-picker:disabled .number-button, .game-board button:disabled, .game-board input:disabled { cursor: not-allowed; }
+.latest-reveal { padding: var(--space-8); background: var(--surface); border-radius: var(--radius-card); }
+.latest-reveal p:last-child { margin-bottom: 0; }
+.latest-reveal > p:not(.eyebrow):not(.draw-number):not(.round-win):not(.round-loss) { color: var(--foreground-muted); }
+.draw-number { font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 5rem); line-height: 1; margin-bottom: var(--space-4); font-variant-numeric: tabular-nums; }
+.round-win { color: var(--success); font-variant-numeric: tabular-nums; }
+.round-loss { color: var(--error); font-variant-numeric: tabular-nums; }
+.round-history { margin-top: var(--space-8); }
+.round-history h2 { font-family: var(--font-text); font-size: 1.1rem; margin-bottom: var(--space-2); }
+.history-list { padding: 0; margin: var(--space-4) 0 0; list-style: none; }
+.history-list li { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); border-bottom: 1px solid var(--border); padding: var(--space-4) 0; font-size: .9rem; }
+.history-list strong { display: block; font-weight: 500; }
+.history-list div span { display: block; font-size: .75rem; color: var(--foreground-muted); line-height: 1.7; }
+.history-empty { color: var(--foreground-muted); padding: var(--space-6) 0; border-bottom: 1px solid var(--border); }
+.retry-state { margin-top: var(--space-4); font-size: .85rem; color: var(--foreground-muted); }
+.game-actions { padding-top: var(--space-6); border-top: 1px solid var(--border); }
+@media (max-width: 900px) {
+  .game-heading { display: block; }
+  .game-balance { margin-top: var(--space-6); flex-wrap: wrap; }
+}
+@media (max-width: 700px) {
+  .game-columns { grid-template-columns: 1fr; }
+  .number-grid { gap: var(--space-2); }
+  .number-button { min-height: 48px; }
+  .latest-reveal { padding: var(--space-6); }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
   .primary:hover { transform: none; }

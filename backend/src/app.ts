@@ -1,16 +1,22 @@
-/** Compose the session API, bounded JSON parser, liveness and sanitized error boundary. */
+/** Compose session and round APIs, bounded JSON parsing, liveness and sanitized errors. */
 import express, { ErrorRequestHandler } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { Config } from './config';
 import { sessionRouter } from './session/routes';
 import { SessionError, SessionService } from './session/service';
+import { RoundService } from './round/service';
+import { roundRouter } from './round/routes';
 
 /** Create an app without starting a listener, so tests use the real HTTP boundary.
- * Args: service: shared session service; config: validated origin configuration.
+ * Args: service: shared session service; config: validated origin; rounds: optional constructor-injected round authority.
  * Returns: Express application; health never accesses the database.
  */
-export function createApp(service: SessionService, config: Pick<Config, 'corsOrigin'>) {
+export function createApp(
+  service: SessionService,
+  config: Pick<Config, 'corsOrigin'>,
+  rounds: RoundService = new RoundService(service)
+) {
   const app = express();
   app.disable('x-powered-by');
   app.use(helmet());
@@ -21,6 +27,10 @@ export function createApp(service: SessionService, config: Pick<Config, 'corsOri
     res.set('Cache-Control', 'no-store');
     next();
   }, sessionRouter(service));
+  app.use('/api/v1/rounds', (_req, res, next) => {
+    res.set('Cache-Control', 'no-store');
+    next();
+  }, roundRouter(rounds));
   app.use((_req, res) => { res.status(404).json({ error: 'Route not found.' }); });
   const errorHandler: ErrorRequestHandler = (error: unknown, _req, res, _next): void => {
     if (error instanceof SessionError) {
