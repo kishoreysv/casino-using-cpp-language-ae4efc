@@ -18,7 +18,7 @@ export class ApiError extends Error {
  * Args: path: path relative to /api; options: method, body, token and optional abort signal.
  * Returns: parsed JSON object.
  * Raises: ApiError for HTTP/network/timeouts; AbortError for caller cancellation.
- * Notes: authenticated 401 clears the one persisted token key. Never logs capabilities.
+ * Notes: authenticated 401 clears only its own still-current capability. Never logs capabilities.
  * @param {string} path
  * @param {{method?: string, body?: object, token?: string, signal?: AbortSignal}} options
  * @returns {Promise<object>}
@@ -39,7 +39,9 @@ export async function request(path, { method = 'GET', body, token, signal } = {}
       body: body === undefined ? undefined : JSON.stringify(body),
       signal: controller.signal
     });
-    if (response.status === 401 && token) sessionStorage.removeItem(TOKEN_KEY);
+    if (response.status === 401 && token && sessionStorage.getItem(TOKEN_KEY) === token) {
+      sessionStorage.removeItem(TOKEN_KEY);
+    }
     const data = await response.json();
     if (!response.ok) {
       throw new ApiError(data.error || 'The request failed. Please try again.', response.status, data.fields);

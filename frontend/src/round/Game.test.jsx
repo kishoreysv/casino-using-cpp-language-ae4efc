@@ -1,7 +1,7 @@
 /** Verify real game UI contracts with transport stubs confined to component tests. */
 import React, { useState } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/vitest';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -142,6 +142,52 @@ describe('Game', () => {
     release(json({ session: { ...session, balance: 2000, rounds: [win] } }, 201));
     expect(await screen.findByRole('heading', { name: 'A perfect match.' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Play round' })).toBeEnabled();
+  });
+
+  it('ignores obsolete responses when an isolated Game receives a replacement session', async () => {
+    let release;
+    fetch.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
+    const setSession = vi.fn();
+    const view = render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <Game session={session} setSession={setSession} />
+      </MemoryRouter>
+    );
+    await userEvent.click(screen.getByRole('button', { name: '7', exact: true }));
+    await userEvent.click(screen.getByRole('button', { name: 'Play round' }));
+    expect(screen.getByRole('button', { name: 'Drawing…' })).toBeDisabled();
+    const replacement = { ...session, id: 'replacement', name: 'Grace', balance: 3000 };
+    sessionStorage.setItem(TOKEN_KEY, 'B'.repeat(43));
+    view.rerender(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <Game session={replacement} setSession={setSession} />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeEnabled();
+    await act(async () => { release(json({ session: { ...session, balance: 2000, rounds: [win] } }, 201)); });
+    expect(setSession).not.toHaveBeenCalled();
+    expect(screen.getByRole('heading', { name: 'Welcome, Grace.' })).toBeVisible();
+    expect(screen.getByLabelText('Current balance')).toHaveTextContent('3,000 credits');
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeEnabled();
+  });
+
+  it('does not update its session owner after an isolated pending Game is unmounted', async () => {
+    let reject;
+    fetch.mockReturnValueOnce(new Promise((_resolve, fail) => { reject = fail; }));
+    const setSession = vi.fn();
+    const view = render(
+      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <Game session={session} setSession={setSession} />
+      </MemoryRouter>
+    );
+    await userEvent.click(screen.getByRole('button', { name: '7', exact: true }));
+    await userEvent.click(screen.getByRole('button', { name: 'Play round' }));
+    view.unmount();
+    await act(async () => { reject(new TypeError('late offline failure')); });
+    expect(setSession).not.toHaveBeenCalled();
+    expect(view.container).toBeEmptyDOMElement();
+    expect(sessionStorage.getItem(TOKEN_KEY)).toBe(token);
   });
 
   it('preserves valid input after server field rejection and permits deliberate retry', async () => {
@@ -323,6 +369,90 @@ describe('Game', () => {
     const { container } = render(<Table initial={{ ...session, name: '<script>alert(1)</script>' }} />);
     expect(screen.getByRole('heading', { name: 'Welcome, <script>alert(1)</script>.' })).toBeVisible();
     expect(container.querySelector('script')).toBeNull();
+  });
+
+  it.each(['Back to rules & setup', 'Rules & setup', 'Tenfold home'])
+    ('keeps a pending play locked after leaving via %s and returning', async (link) => {
+      let release;
+      fetch.mockResolvedValueOnce(json({ session }));
+      fetch.mockReturnValueOnce(new Promise((resolve) => { release = resolve; }));
+      window.history.replaceState({}, '', '/play');
+      render(<App />);
+      await userEvent.click(await screen.findByRole('button', { name: '7', exact: true }));
+      await userEvent.click(screen.getByRole('button', { name: 'Play round' }));
+      await userEvent.click(screen.getByRole('link', { name: link }));
+      await userEvent.click(screen.getByRole('link', { name: 'Saved session', exact: true }));
+      expect(screen.getByRole('button', { name: 'Drawing…' })).toBeDisabled();
+      expect(screen.getByRole('button', { name: 'Stop session' })).toBeDisabled();
+      fireEvent.submit(screen.getByLabelText('Stake in credits').closest('form'));
+      expect(fetch).toHaveBeenCalledTimes(2);
+      await act(async () => { release(json({ session: { ...session, balance: 2000, rounds: [win] } }, 201)); });
+      expect(screen.getByLabelText('Current balance')).toHaveTextContent('2,000 credits');
+      expect(screen.getByRole('button', { name: 'Play round' })).toBeEnabled();
+    });
+
+  it('retains uncertainty across navigation and failed refresh until successful recovery', async () => {
+    let recover;
+    fetch.mockResolvedValueOnce(json({ session }));
+    fetch.mockRejectedValueOnce(new TypeError('offline'));
+    fetch.mockResolvedValueOnce(json({ error: 'Still unavailable.' }, 500));
+    fetch.mockReturnValueOnce(new Promise((resolve) => { recover = resolve; }));
+    window.history.replaceState({}, '', '/play');
+    render(<App />);
+    await userEvent.click(await screen.findByRole('button', { name: '7', exact: true }));
+    await userEvent.click(screen.getByRole('button', { name: 'Play round' }));
+    await screen.findByRole('button', { name: 'Refresh saved state' });
+    await userEvent.click(screen.getByRole('link', { name: 'Rules & setup' }));
+    await userEvent.click(screen.getByRole('link', { name: 'View saved session' }));
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeDisabled();
+    fireEvent.submit(screen.getByLabelText('Stake in credits').closest('form'));
+    expect(fetch).toHaveBeenCalledTimes(2);
+    await userEvent.click(screen.getByRole('button', { name: 'Refresh saved state' }));
+    expect(await screen.findByRole('alert')).toHaveTextContent('Still unavailable');
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeDisabled();
+    await userEvent.click(screen.getByRole('button', { name: 'Refresh saved state' }));
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeDisabled();
+    await act(async () => { recover(json({ session: { ...session, balance: 2000, rounds: [win] } })); });
+    expect(screen.getByLabelText('Current balance')).toHaveTextContent('2,000 credits');
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeEnabled();
+    expect(fetch.mock.calls.slice(2).map(([url]) => url)).toEqual([
+      '/api/v1/sessions/current', '/api/v1/sessions/current'
+    ]);
+  });
+
+  it.each(['success', 'unauthorized'])('ignores an old play %s after starting a new session', async (outcome) => {
+    let oldPlay;
+    let newPlay;
+    const newToken = 'B'.repeat(43);
+    const newSession = { ...session, id: 'new-seat', name: 'Grace', balance: 3000 };
+    fetch.mockResolvedValueOnce(json({ session }));
+    fetch.mockReturnValueOnce(new Promise((resolve) => { oldPlay = resolve; }));
+    fetch.mockResolvedValueOnce(json({ token: newToken, session: newSession }, 201));
+    fetch.mockReturnValueOnce(new Promise((resolve) => { newPlay = resolve; }));
+    window.history.replaceState({}, '', '/play');
+    render(<App />);
+    await userEvent.click(await screen.findByRole('button', { name: '7', exact: true }));
+    await userEvent.click(screen.getByRole('button', { name: 'Play round' }));
+    await userEvent.click(screen.getByRole('link', { name: 'Back to rules & setup' }));
+    await userEvent.type(screen.getByLabelText('Your name'), 'Grace');
+    await userEvent.click(screen.getByRole('button', { name: 'Start a new session' }));
+    expect(await screen.findByRole('heading', { name: 'Welcome, Grace.' })).toBeVisible();
+    await userEvent.click(screen.getByRole('button', { name: '7', exact: true }));
+    await userEvent.click(screen.getByRole('button', { name: 'Play round' }));
+    await act(async () => {
+      oldPlay(outcome === 'success'
+        ? json({ session: { ...session, balance: 2000, rounds: [win] } }, 201)
+        : json({ error: 'Old key expired.' }, 401));
+    });
+    expect(screen.getByRole('heading', { name: 'Welcome, Grace.' })).toBeVisible();
+    expect(screen.getByLabelText('Current balance')).toHaveTextContent('3,000 credits');
+    expect(screen.getByRole('button', { name: 'Drawing…' })).toBeDisabled();
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(sessionStorage.getItem(TOKEN_KEY)).toBe(newToken);
+    expect(fetch).toHaveBeenCalledTimes(4);
+    await act(async () => { newPlay(json({ session: { ...newSession, balance: 4000, rounds: [win] } }, 201)); });
+    expect(screen.getByLabelText('Current balance')).toHaveTextContent('4,000 credits');
+    expect(screen.getByRole('button', { name: 'Play round' })).toBeEnabled();
   });
 
   it('preserves finished saved data and history through app recovery and link navigation', async () => {

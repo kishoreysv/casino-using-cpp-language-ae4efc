@@ -1,7 +1,7 @@
 /** Verify the welcome workflow, shared transport and app recovery using component-level HTTP stubs. */
 import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { act, cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/vitest';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -188,6 +188,20 @@ describe('shared API transport', () => {
     expect(sessionStorage.getItem(TOKEN_KEY)).toBe(token);
   });
 
+  it('cancels a request whose caller signal was already aborted and retains its key', async () => {
+    sessionStorage.setItem(TOKEN_KEY, token);
+    fetch.mockImplementation((_url, { signal }) => {
+      expect(signal.aborted).toBe(true);
+      return Promise.reject(new DOMException('Aborted', 'AbortError'));
+    });
+    const controller = new AbortController();
+    controller.abort();
+    await expect(request('/v1/sessions/current', { token, signal: controller.signal }))
+      .rejects.toMatchObject({ name: 'AbortError' });
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(sessionStorage.getItem(TOKEN_KEY)).toBe(token);
+  });
+
   it('starts, recovers and stops via the shared envelopes', async () => {
     fetch.mockResolvedValueOnce(json({ token, session }, 201));
     fetch.mockResolvedValueOnce(json({ session }));
@@ -239,6 +253,31 @@ describe('app-owned recovery and navigation', () => {
     expect(screen.getByRole('status')).toHaveTextContent('Recovering your session');
     resolve(json({ session }));
     expect(await screen.findByRole('link', { name: 'View saved session' })).toBeVisible();
+  });
+
+  it('aborts pending recovery on unmount and ignores its late cancellation rejection', async () => {
+    sessionStorage.setItem(TOKEN_KEY, token);
+    let reject;
+    let signal;
+    fetch.mockImplementation((_url, options) => {
+      signal = options.signal;
+      return new Promise((_resolve, fail) => { reject = fail; });
+    });
+    const consoleError = vi.spyOn(console, 'error');
+    try {
+      const view = render(<App />);
+      expect(screen.getByRole('status')).toHaveTextContent('Recovering your session');
+      expect(signal.aborted).toBe(false);
+      view.unmount();
+      expect(signal.aborted).toBe(true);
+      await act(async () => { reject(new DOMException('Late cancellation', 'AbortError')); });
+      expect(view.container).toBeEmptyDOMElement();
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+      expect(sessionStorage.getItem(TOKEN_KEY)).toBe(token);
+      expect(consoleError).not.toHaveBeenCalled();
+    } finally {
+      consoleError.mockRestore();
+    }
   });
 
   it('shows transient recovery failure and retries with the same persisted key', async () => {

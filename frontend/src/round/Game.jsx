@@ -2,23 +2,21 @@
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { recoverSession, request, stopSession, TOKEN_KEY } from '../session/api';
+import useSessionCommands from '../session/useSessionCommands';
 
 const numbers = Array.from({ length: 10 }, (_, index) => index + 1);
 
 /** Present stake, selection, committed results and recoverable command failures.
- * Args: session: public root-owned session or null; setSession: update root-owned state.
+ * Args: session: public root-owned session or null; setSession: React session updater;
+ *   commands: optional root-owned command hook result, retained across route changes.
  * Returns: Accessible table or actionable no-session state, without advance draw information.
  * Notes: An uncertain play is never automatically replayed; refresh saved state before choosing to play again.
  */
-export default function Game({ session, setSession }) {
+export default function Game({ session, setSession, commands }) {
   const [bet, setBet] = useState('100');
   const [guess, setGuess] = useState(null);
-  const [fields, setFields] = useState({});
-  const [error, setError] = useState('');
-  const [pending, setPending] = useState('');
-  const [uncertain, setUncertain] = useState(false);
-  const locked = useRef(false);
+  const localCommands = useSessionCommands(session, setSession);
+  const { pending, uncertain, fields, error, setFields, setError, run } = commands ?? localCommands;
   const stakeRef = useRef(null);
   const firstNumberRef = useRef(null);
   const active = session?.status === 'active' && session.balance >= 100;
@@ -29,7 +27,7 @@ export default function Game({ session, setSession }) {
    * Notes: Refresh is required after an uncertain play to avoid blindly duplicating a committed round.
    */
   async function command(action) {
-    if (locked.current || (action === 'play' && (!active || uncertain))) return;
+    if (pending || (action === 'play' && (!active || uncertain))) return;
     if (action === 'play') {
       const next = {};
       const value = Number(bet);
@@ -46,32 +44,7 @@ export default function Game({ session, setSession }) {
         return;
       }
     }
-    locked.current = true;
-    setPending(action);
-    setError('');
-    try {
-      let saved;
-      if (action === 'play') {
-        saved = (await request('/v1/rounds', {
-          method: 'POST', body: { bet: Number(bet), guess }, token: sessionStorage.getItem(TOKEN_KEY)
-        })).session;
-      } else if (action === 'stop') {
-        saved = await stopSession();
-      } else {
-        saved = await recoverSession();
-      }
-      setSession(saved);
-      setFields({});
-      setUncertain(false);
-    } catch (failure) {
-      if (failure.status === 401) setSession(null);
-      setFields(failure.fields || {});
-      setError(failure.message);
-      if (action === 'play' && (!failure.status || failure.status >= 500 || failure.status === 409)) setUncertain(true);
-    } finally {
-      locked.current = false;
-      setPending('');
-    }
+    await run(action, { bet: Number(bet), guess });
   }
 
   if (!session) {
@@ -261,5 +234,14 @@ Game.propTypes = {
       balance: PropTypes.number.isRequired
     })).isRequired
   }),
-  setSession: PropTypes.func.isRequired
+  setSession: PropTypes.func.isRequired,
+  commands: PropTypes.shape({
+    pending: PropTypes.string.isRequired,
+    uncertain: PropTypes.bool.isRequired,
+    fields: PropTypes.object.isRequired,
+    error: PropTypes.string.isRequired,
+    setFields: PropTypes.func.isRequired,
+    setError: PropTypes.func.isRequired,
+    run: PropTypes.func.isRequired
+  })
 };

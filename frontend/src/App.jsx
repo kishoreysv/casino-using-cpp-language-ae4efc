@@ -4,10 +4,12 @@ import Game from './round/Game';
 import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
 import Welcome from './session/Welcome';
 import { recoverSession, TOKEN_KEY } from './session/api';
+import useSessionCommands from './session/useSessionCommands';
 
 /** Render the shared shell and recovery boundary; session state survives route changes. */
 function SessionApp() {
   const [session, setSession] = useState(null);
+  const commands = useSessionCommands(session, setSession);
   const [recovering, setRecovering] = useState(true);
   const [error, setError] = useState('');
   const [attempt, setAttempt] = useState(0);
@@ -18,7 +20,10 @@ function SessionApp() {
       setRecovering(true);
       setError('');
       try {
-        if (sessionStorage.getItem(TOKEN_KEY)) setSession(await recoverSession(controller.signal));
+        if (sessionStorage.getItem(TOKEN_KEY)) {
+          const saved = await recoverSession(controller.signal);
+          if (!controller.signal.aborted) setSession(saved);
+        }
       } catch (failure) {
         if (!controller.signal.aborted) setError(failure.message);
       } finally {
@@ -67,7 +72,7 @@ function SessionApp() {
               <Route
                 path="/play"
                 element={
-                  <Game session={session} setSession={setSession} />
+                  <Game key={session?.id} session={session} setSession={setSession} commands={commands} />
                 }
               />
               <Route path="*" element={
