@@ -4,6 +4,7 @@ dist/
 build/
 .env
 .env.local
+.env.prod
 .env.*.local
 __pycache__/
 .venv/
