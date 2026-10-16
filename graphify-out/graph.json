@@ -89,11 +89,19 @@
       "_origin": "ast"
     },
     {
+      "id": "backend_package_scripts_test_integration",
+      "label": "test:integration",
+      "file_type": "code",
+      "source_file": "backend/package.json",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
       "id": "backend_package_dependencies",
       "label": "dependencies",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -101,7 +109,7 @@
       "label": "better-sqlite3",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast"
     },
     {
@@ -109,7 +117,7 @@
       "label": "cors",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -117,7 +125,7 @@
       "label": "dotenv",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -125,7 +133,7 @@
       "label": "express",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast"
     },
     {
@@ -133,7 +141,7 @@
       "label": "helmet",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -141,7 +149,7 @@
       "label": "zod",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast"
     },
     {
@@ -149,7 +157,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "_origin": "ast"
     },
     {
@@ -157,7 +165,7 @@
       "label": "@types/better-sqlite3",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast"
     },
     {
@@ -165,7 +173,7 @@
       "label": "@types/cors",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast"
     },
     {
@@ -173,7 +181,7 @@
       "label": "@types/express",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast"
     },
     {
@@ -181,7 +189,7 @@
       "label": "@types/node",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "_origin": "ast"
     },
     {
@@ -189,7 +197,7 @@
       "label": "@types/supertest",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L25",
+      "source_location": "L26",
       "_origin": "ast"
     },
     {
@@ -197,7 +205,7 @@
       "label": "supertest",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L26",
+      "source_location": "L27",
       "_origin": "ast"
     },
     {
@@ -205,7 +213,7 @@
       "label": "ts-node-dev",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L27",
+      "source_location": "L28",
       "_origin": "ast"
     },
     {
@@ -213,7 +221,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L28",
+      "source_location": "L29",
       "_origin": "ast"
     },
     {
@@ -221,7 +229,7 @@
       "label": "vitest",
       "file_type": "code",
       "source_file": "backend/package.json",
-      "source_location": "L29",
+      "source_location": "L30",
       "_origin": "ast"
     },
     {
@@ -569,6 +577,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_integration_test",
+      "label": "integration.test.ts",
+      "file_type": "code",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_round_test",
       "label": "round.test.ts",
       "file_type": "code",
@@ -726,6 +742,70 @@
       "file_type": "code",
       "source_file": "backend/vitest.config.ts",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog",
+      "label": "CHANGELOG.md",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog_changelog",
+      "label": "Changelog",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog_tenfold_web_extension",
+      "label": "Tenfold web extension",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog_added",
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog_repository_relationship_and_modified_files",
+      "label": "Repository relationship and modified files",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog_reliability_and_boundaries",
+      "label": "Reliability and boundaries",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog_migration_deployment_rollback",
+      "label": "Migration / deployment / rollback",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "changelog_verified_and_remaining_review",
+      "label": "Verified and remaining review",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L24",
       "_origin": "ast"
     },
     {
@@ -1013,7 +1093,7 @@
       "label": "SessionApp()",
       "file_type": "code",
       "source_file": "frontend/src/App.jsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast"
     },
     {
@@ -1021,7 +1101,7 @@
       "label": "App()",
       "file_type": "code",
       "source_file": "frontend/src/App.jsx",
-      "source_location": "L92",
+      "source_location": "L97",
       "_origin": "ast"
     },
     {
@@ -1053,7 +1133,7 @@
       "label": "Game()",
       "file_type": "code",
       "source_file": "frontend/src/round/Game.jsx",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -1157,7 +1237,7 @@
       "label": "startSession()",
       "file_type": "code",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L64",
+      "source_location": "L66",
       "_origin": "ast"
     },
     {
@@ -1165,7 +1245,7 @@
       "label": "recoverSession()",
       "file_type": "code",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L76",
+      "source_location": "L78",
       "_origin": "ast"
     },
     {
@@ -1173,7 +1253,23 @@
       "label": "stopSession()",
       "file_type": "code",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L85",
+      "source_location": "L87",
+      "_origin": "ast"
+    },
+    {
+      "id": "session_usesessioncommands",
+      "label": "useSessionCommands.js",
+      "file_type": "code",
+      "source_file": "frontend/src/session/useSessionCommands.js",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "session_usesessioncommands_usesessioncommands",
+      "label": "useSessionCommands()",
+      "file_type": "code",
+      "source_file": "frontend/src/session/useSessionCommands.js",
+      "source_location": "L10",
       "_origin": "ast"
     },
     {
@@ -1369,17 +1465,17 @@
       "weight": 1.0
     },
     {
-      "source": "backend_package",
-      "target": "backend_package_dependencies",
+      "source": "backend_package_scripts",
+      "target": "backend_package_scripts_test_integration",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L12",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
-      "source": "backend_package_dependencies",
-      "target": "backend_package_dependencies_better_sqlite3",
+      "source": "backend_package",
+      "target": "backend_package_dependencies",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
@@ -1388,7 +1484,7 @@
     },
     {
       "source": "backend_package_dependencies",
-      "target": "backend_package_dependencies_cors",
+      "target": "backend_package_dependencies_better_sqlite3",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
@@ -1397,7 +1493,7 @@
     },
     {
       "source": "backend_package_dependencies",
-      "target": "backend_package_dependencies_dotenv",
+      "target": "backend_package_dependencies_cors",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
@@ -1406,7 +1502,7 @@
     },
     {
       "source": "backend_package_dependencies",
-      "target": "backend_package_dependencies_express",
+      "target": "backend_package_dependencies_dotenv",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
@@ -1415,7 +1511,7 @@
     },
     {
       "source": "backend_package_dependencies",
-      "target": "backend_package_dependencies_helmet",
+      "target": "backend_package_dependencies_express",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
@@ -1424,11 +1520,20 @@
     },
     {
       "source": "backend_package_dependencies",
-      "target": "backend_package_dependencies_zod",
+      "target": "backend_package_dependencies_helmet",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
       "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_package_dependencies",
+      "target": "backend_package_dependencies_zod",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/package.json",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -1437,7 +1542,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -1446,7 +1551,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -1455,7 +1560,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -1464,7 +1569,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -1473,7 +1578,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -1482,7 +1587,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -1491,7 +1596,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -1500,7 +1605,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -1509,7 +1614,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -1518,7 +1623,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/package.json",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -2187,6 +2292,76 @@
       "weight": 1.0
     },
     {
+      "source": "tests_integration_test",
+      "target": "session_repository",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_integration_test",
+      "target": "session_repository_sessionrepository",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_integration_test",
+      "target": "session_service",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_integration_test",
+      "target": "session_service_sessionservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_integration_test",
+      "target": "round_service",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_integration_test",
+      "target": "round_service_roundservice",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_integration_test",
+      "target": "src_app_createapp",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/tests/integration.test.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
       "source": "tests_round_test",
       "target": "session_repository",
       "relation": "imports_from",
@@ -2468,6 +2643,69 @@
       "confidence": "EXTRACTED",
       "source_file": "backend/tsconfig.json",
       "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "changelog",
+      "target": "changelog_changelog",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "changelog_changelog",
+      "target": "changelog_tenfold_web_extension",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "changelog_tenfold_web_extension",
+      "target": "changelog_added",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "changelog_tenfold_web_extension",
+      "target": "changelog_repository_relationship_and_modified_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "changelog_tenfold_web_extension",
+      "target": "changelog_reliability_and_boundaries",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "changelog_tenfold_web_extension",
+      "target": "changelog_migration_deployment_rollback",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "changelog_tenfold_web_extension",
+      "target": "changelog_verified_and_remaining_review",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -2782,11 +3020,21 @@
     },
     {
       "source": "frontend_src_app_jsx_src_app",
+      "target": "session_usesessioncommands",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/App.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_app_jsx_src_app",
       "target": "src_app_sessionapp",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/App.jsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -2795,43 +3043,13 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/App.jsx",
-      "source_location": "L92",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
       "source": "round_game",
-      "target": "session_api",
+      "target": "session_usesessioncommands",
       "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/round/Game.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
-      "source": "round_game",
-      "target": "session_api_recoversession",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/round/Game.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
-      "source": "round_game",
-      "target": "session_api_request",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/round/Game.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
-      "source": "round_game",
-      "target": "session_api_stopsession",
-      "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/round/Game.jsx",
@@ -2853,7 +3071,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/round/Game.jsx",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -2972,7 +3190,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -2981,7 +3199,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L76",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -2990,7 +3208,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L85",
+      "source_location": "L87",
       "weight": 1.0
     },
     {
@@ -3000,7 +3218,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L65",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -3010,7 +3228,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L77",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -3020,7 +3238,56 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/session/api.js",
-      "source_location": "L86",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "session_usesessioncommands",
+      "target": "session_api",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/session/useSessionCommands.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "session_usesessioncommands",
+      "target": "session_api_recoversession",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/session/useSessionCommands.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "session_usesessioncommands",
+      "target": "session_api_request",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/session/useSessionCommands.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "session_usesessioncommands",
+      "target": "session_api_stopsession",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/session/useSessionCommands.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "session_usesessioncommands",
+      "target": "session_usesessioncommands_usesessioncommands",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/session/useSessionCommands.js",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -3226,6 +3493,16 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_app_jsx_src_app",
+      "target": "session_usesessioncommands_usesessioncommands",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/App.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "src_main",
       "target": "src_app_app",
       "relation": "imports",
@@ -3233,6 +3510,16 @@
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/main.jsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "round_game",
+      "target": "session_usesessioncommands_usesessioncommands",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/round/Game.jsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -3287,12 +3574,22 @@
     },
     {
       "source": "src_app_sessionapp",
+      "target": "session_usesessioncommands_usesessioncommands",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/App.jsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "src_app_sessionapp",
       "target": "session_api_recoversession",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/App.jsx",
-      "source_location": "L21",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -3422,6 +3719,17 @@
       "weight": 1.0
     },
     {
+      "source": "round_game_game",
+      "target": "session_usesessioncommands_usesessioncommands",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/round/Game.jsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
       "source": "session_repository_session",
       "target": "session_service_sessionservice_create",
       "relation": "references",
@@ -3430,8 +3738,8 @@
       "source_file": "backend/src/session/service.ts",
       "source_location": "L41",
       "weight": 1.0,
-      "_src": "session_service_sessionservice_create",
-      "_tgt": "session_repository_session"
+      "_src": "session_repository_session",
+      "_tgt": "session_service_sessionservice_create"
     },
     {
       "source": "session_repository_session",
@@ -3442,8 +3750,8 @@
       "source_file": "backend/src/session/service.ts",
       "source_location": "L64",
       "weight": 1.0,
-      "_src": "session_service_sessionservice_current",
-      "_tgt": "session_repository_session"
+      "_src": "session_repository_session",
+      "_tgt": "session_service_sessionservice_current"
     },
     {
       "source": "session_repository_session",
@@ -3454,8 +3762,8 @@
       "source_file": "backend/src/session/service.ts",
       "source_location": "L78",
       "weight": 1.0,
-      "_src": "session_service_sessionservice_stop",
-      "_tgt": "session_repository_session"
+      "_src": "session_repository_session",
+      "_tgt": "session_service_sessionservice_stop"
     },
     {
       "source": "session_repository_sessionrepository",
@@ -3466,15 +3774,15 @@
       "source_file": "backend/src/session/service.ts",
       "source_location": "L34",
       "weight": 1.0,
-      "_src": "session_service_sessionservice_constructor",
-      "_tgt": "session_repository_sessionrepository"
+      "_src": "session_repository_sessionrepository",
+      "_tgt": "session_service_sessionservice_constructor"
     }
   ],
   "metadata": {
-    "built_at": "2026-10-16T13:22:29.804986+00:00",
+    "built_at": "2026-10-16T14:02:57.229333+00:00",
     "version": "graph_update-v1",
     "codebase_root": "C:\\artifacts-v2\\T0132PcJVCRTV000415102615134980\\developer",
     "force": true,
-    "files_scanned": 28
+    "files_scanned": 31
   }
 }
