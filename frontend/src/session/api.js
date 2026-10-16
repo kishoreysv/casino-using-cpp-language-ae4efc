@@ -1,6 +1,7 @@
 /** Share same-origin JSON transport and the browser-held session capability across features. */
 export const TOKEN_KEY = 'tenfold.session.token';
-const baseUrl = (import.meta.env.VITE_API_BASE_URL ?? '/api').replace(/\/$/, '');
+// The deployment platform's same-origin marker may be empty. Keep our API namespace.
+const baseUrl = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '');
 
 /** Carry a public request failure with HTTP status and per-field details. */
 export class ApiError extends Error {
